@@ -15,6 +15,3 @@ cd && git clone https://github.com/gwenhael-le-moine/TermuxSlack
 ```
 
 When successfully completed, you will be at the bash prompt with Slackware Linux in Termux in the palm of your hand ☺
-
-![Linux on Android](./archntoau.png)
-
