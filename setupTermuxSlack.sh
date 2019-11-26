@@ -28,6 +28,14 @@ fi
 proot --link2symlink tar -xvf slack-current-miniroot_${MINIROOTFS_VERSION}.tar.xz --exclude=dev||:
 
 echo "Configuring Slackware"
+echo
+mv $HOME/slackware/etc/resolv.conf $HOME/slackware/etc/resolv.conf.orig
+cat <<EOF > $HOME/slackware/etc/resolv.conf
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+EOF
+
 bin=startSlackware
 echo "Writing launch script."
 cat > $bin <<- EOM
