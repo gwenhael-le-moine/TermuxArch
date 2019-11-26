@@ -21,7 +21,7 @@ cd $HOME/slackware
 echo "Downloading slackware-image."
 echo
 if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "armv7l" ];then
-    wget -c ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-devtools/minirootfs/roots/slack-current-miniroot_11Oct17.tar.xz -O slackware.tar.xz
+    wget -c ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-devtools/minirootfs/roots/slack-current-miniroot_25Nov19.tar.xz -O slackware.tar.xz
 else
     echo "Unknown architecture version for this setup script! There is hope."
     echo "Please check for other available architectures at http://mirror.archlinuxarm.org/os/"
@@ -36,6 +36,7 @@ bin=startSlackware
 echo "Writing launch script."
 cat > $bin <<- EOM
 #!/data/data/com.termux/files/usr/bin/bash
+unset LD_PRELOAD
 proot --link2symlink -0 -r ~/slackware -b /dev/ -b /sys/ -b /proc/ -b /storage/ -b $HOME -w $HOME /bin/env -i HOME=/root TERM="$TERM" PS1='[termux@slackware \W]\$ ' LANG=$LANG PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login
 EOM
 echo "Making $bin executable."
