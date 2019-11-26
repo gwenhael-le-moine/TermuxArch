@@ -14,8 +14,8 @@ sleep 2
 echo "When successfully completed, you will be at the bash prompt in Slackware Linux in Termux."
 sleep 1
 pkg up
-pkg install proot tar
-echo
+pkg install proot tar wget curl
+
 mkdir -p $HOME/slackware
 cd $HOME/slackware
 echo "Downloading slackware-image."
