@@ -15,13 +15,19 @@ cd $HOME/slackware
 
 echo "Downloading slackware-image."
 echo
+MINIROOTFS_VERSION=$(curl https://slackware.uk/slackwarearm/slackwarearm-devtools/minirootfs/roots/ | grep ">slack-current-miniroot_.*\.tar.xz" -o | grep -o "[0-9].*[0-9]")
+
 if [ "$(uname -m)" = "aarch64" ] || [ "$(uname -m)" = "armv7l" ];then
-    wget -c ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-devtools/minirootfs/roots/slack-current-miniroot_25Nov19.tar.xz -O slackware.tar.xz
+    wget -c ftp://ftp.arm.slackware.com/slackwarearm/slackwarearm-devtools/minirootfs/roots/slack-current-miniroot_${MINIROOTFS_VERSION}.tar.xz -O slack-current-miniroot_${MINIROOTFS_VERSION}.tar.xz
 else
     echo "Unknown architecture version for this setup script! There is hope."
     echo "Please check for other available architectures at http://mirror.archlinuxarm.org/os/"
     exit 1
 fi
+
+proot --link2symlink tar -xvf slack-current-miniroot_${MINIROOTFS_VERSION}.tar.xz --exclude=dev||:
+
+echo "Configuring Slackware"
 bin=startSlackware
 echo "Writing launch script."
 cat > $bin <<- EOM
